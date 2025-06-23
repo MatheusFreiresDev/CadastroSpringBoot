@@ -21,7 +21,6 @@ public class NinjaModel {
     @Column(unique = true)
     private String email;
     private int idade;
-    private String rank;
 
    //Varios pra um. o varios seria a propia classe e o one a classe q vc red
     @ManyToOne
