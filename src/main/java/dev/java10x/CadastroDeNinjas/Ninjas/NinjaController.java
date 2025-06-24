@@ -16,16 +16,18 @@ public class NinjaController{
     //CRUDzadaa
 // add ninja
 @PostMapping("/add")
-    public String criarNinja() {
-    return "Ninja Criado";
+public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
+
+    return ninjaService.criarNinja(ninja);
 }
 // procurar ninja id
-@GetMapping("/id")
-public String listarNinjaId() {
-    return "Ninja Criado";
-}
+@GetMapping("/listarId/{id}")
+public NinjaModel listarNinjaId(@PathVariable long id) {
+    NinjaModel ninja = ninjaService.listarNinjaId(id);
+    return ninja;
+    }
 // listar ninjas
-@GetMapping("/todos")
+@GetMapping("/listar")
 public List<NinjaModel> listarNinjas() {
     return ninjaService.listarNinja();
 }
