@@ -22,5 +22,13 @@ public class MissoesService {
         Optional<MissoesModel> a = missoesRepository.findById(id);
         return a.orElse(null);
     }
+    public MissoesModel adicionarNinja(MissoesModel missoesModel) {
+        missoesRepository.save(missoesModel);
+        return missoesModel;
+    }
 
+    public void remover(Long id) {
+        Optional<MissoesModel> missoesModel = missoesRepository.findById(id);
+        missoesRepository.delete(missoesModel.orElse(null));
+    }
 }

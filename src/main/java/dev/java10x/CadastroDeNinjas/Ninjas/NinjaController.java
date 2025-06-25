@@ -37,9 +37,9 @@ public String alterarNinja() {
     return "Ninja Criado";
 }
 //deletar
-@DeleteMapping("/deletar")
-    public String deletarNinja() {
-        return "Ninja Criado";
+@DeleteMapping("/deletar/{id}")
+    public void deletarNinja(@PathVariable long id) {
+        ninjaService.deletando(id);
     }
 
 }
