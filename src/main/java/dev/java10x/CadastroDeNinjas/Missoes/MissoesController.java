@@ -34,4 +34,9 @@ public class MissoesController {
     public void Deletar(@PathVariable Long id) {
         missoesService.remover(id);
     }
+
+    @PutMapping("/alterar/{id}")
+    public MissoesModel alterar(@PathVariable Long id,@RequestBody MissoesModel missoesModel) {
+        return  missoesService.alterar(id,missoesModel);
+    }
 }

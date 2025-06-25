@@ -31,4 +31,12 @@ public class MissoesService {
         Optional<MissoesModel> missoesModel = missoesRepository.findById(id);
         missoesRepository.delete(missoesModel.orElse(null));
     }
+    public MissoesModel alterar(Long id, MissoesModel missoesModel) {
+        if(missoesRepository.existsById(id)){
+            missoesModel.setId(id);
+            return missoesRepository.save(missoesModel);
+        }
+        return null;
+
+    }
 }

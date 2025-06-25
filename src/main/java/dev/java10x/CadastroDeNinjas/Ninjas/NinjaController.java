@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,10 +33,10 @@ public List<NinjaModel> listarNinjas() {
     return ninjaService.listarNinja();
 }
 //alterar dados
-@PutMapping("/alterar")
-public String alterarNinja() {
-    return "Ninja Criado";
-}
+@PutMapping("/alterar/{id}")
+public NinjaModel alterarNinja(@PathVariable long id,@RequestBody NinjaModel ninjaModel) {;
+    return  ninjaService.atualizar(id,ninjaModel);
+    }
 //deletar
 @DeleteMapping("/deletar/{id}")
     public void deletarNinja(@PathVariable long id) {
