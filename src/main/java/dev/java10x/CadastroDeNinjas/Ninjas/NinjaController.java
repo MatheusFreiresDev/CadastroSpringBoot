@@ -8,6 +8,7 @@ import java.util.List;
 @RestController
 @RequestMapping("ninjas")
 public class NinjaController{
+
     NinjaService ninjaService;
 
     public NinjaController(NinjaService ninjaService) {
@@ -17,25 +18,25 @@ public class NinjaController{
     //CRUDzadaa
 // add ninja
 @PostMapping("/add")
-public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
+public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja) {
 
     return ninjaService.criarNinja(ninja);
 }
 // procurar ninja id
 @GetMapping("/listarId/{id}")
-public NinjaModel listarNinjaId(@PathVariable long id) {
-    NinjaModel ninja = ninjaService.listarNinjaId(id);
+public NinjaDTO listarNinjaId(@PathVariable long id) {
+    NinjaDTO ninja = ninjaService.listarNinjaId(id);
     return ninja;
     }
 // listar ninjas
 @GetMapping("/listar")
-public List<NinjaModel> listarNinjas() {
+public List<NinjaDTO> listarNinjas() {
     return ninjaService.listarNinja();
 }
 //alterar dados
 @PutMapping("/alterar/{id}")
-public NinjaModel alterarNinja(@PathVariable long id,@RequestBody NinjaModel ninjaModel) {;
-    return  ninjaService.atualizar(id,ninjaModel);
+public NinjaDTO alterarNinja(@PathVariable long id,@RequestBody NinjaDTO ninjaDTO) {;
+    return  ninjaService.atualizar(id,ninjaDTO);
     }
 //deletar
 @DeleteMapping("/deletar/{id}")
