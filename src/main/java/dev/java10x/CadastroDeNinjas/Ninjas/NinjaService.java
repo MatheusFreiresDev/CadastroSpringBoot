@@ -6,41 +6,49 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
-    private NinjaRepository ninjaRepository;
 
-    public NinjaService(NinjaRepository ninjaRepository) {
+    private NinjaRepository ninjaRepository;
+    private NinjaMapper ninjaMapper;
+
+    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper) {
         this.ninjaRepository = ninjaRepository;
+        this.ninjaMapper = ninjaMapper;
     }
 
     //listar todos ninjas
-    public List<NinjaModel> listarNinja(){
-    return ninjaRepository.findAll();
+    public List<NinjaDTO> listarNinja(){
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas .stream()
+                .map(ninjaMapper::map)
+                .collect(Collectors.toList());
 
     };
-    public NinjaModel listarNinjaId(Long id) {
+    public NinjaDTO listarNinjaId(Long id) {
         Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
-        return ninjaModel.orElse(null);
+        return ninjaModel.map(ninjaMapper::map).orElse(null);
     }
-    public NinjaModel criarNinja(NinjaModel ninja){
-        return ninjaRepository.save(ninja);
-}
+    public NinjaDTO criarNinja(NinjaDTO ninjadto){
+        NinjaModel ninja = ninjaMapper.map(ninjadto);
+        ninjaRepository.save(ninja);
+        return ninjaMapper.map(ninja);
+    }
 
     public  void deletando(Long id) {
+      ninjaRepository.deleteById(id);
+    }
+
+    public NinjaDTO atualizar(Long id, NinjaDTO ninja) {
         Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
-        ninjaRepository.delete(ninjaModel.orElse(null));
+    if(ninjaModel.isPresent()){
+        NinjaModel ninjaAtual = ninjaMapper.map(ninja);
+        ninjaRepository.save(ninjaAtual);
+        return ninjaMapper.map(ninjaAtual);
     }
+    return null;
+    }}
 
-    public NinjaModel atualizar(Long id, NinjaModel ninja) {
-    if(ninjaRepository.existsById(id)) {
-        ninja.setId(id);
-        ninjaRepository.save(ninja);
-        return ninja;
-    }
-        return null;
-    }
-
-}
 
