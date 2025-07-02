@@ -31,6 +31,7 @@ public class NinjaService {
         Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
         return ninjaModel.map(ninjaMapper::map).orElse(null);
     }
+
     public NinjaDTO criarNinja(NinjaDTO ninjadto){
         NinjaModel ninja = ninjaMapper.map(ninjadto);
         ninjaRepository.save(ninja);
@@ -45,6 +46,7 @@ public class NinjaService {
         Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
     if(ninjaModel.isPresent()){
         NinjaModel ninjaAtual = ninjaMapper.map(ninja);
+        ninjaAtual.setId(id);
         ninjaRepository.save(ninjaAtual);
         return ninjaMapper.map(ninjaAtual);
     }
