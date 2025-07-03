@@ -47,10 +47,9 @@ public class MissoesService {
     }
     public MissoesDTO alterar(Long id, MissoesDTO missoesDTO) {
         if(missoesRepository.existsById(id)){
-            MissoesModel missoesModel = new MissoesModel();
+            MissoesModel missoesModel = missoesMapper.map(missoesDTO);
             missoesModel.setId(id);
             missoesRepository.save(missoesModel);
-
             return missoesMapper.map(missoesModel);
         }
         return null;
